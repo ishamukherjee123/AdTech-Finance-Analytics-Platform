@@ -2,11 +2,11 @@
 
 **A Business Intelligence Project for Amazon Ads Finance Department**
 
-## 📊 Project Overview
+## Project Overview
 
 This project demonstrates advanced Business Intelligence capabilities through a comprehensive analytics platform for Amazon Advertising campaign performance analysis. Built with SQL, Python, and interactive web visualizations, it showcases the skills essential for a BI role in Amazon Ads Finance.
 
-## 🎯 Business Value
+##  Business Value
 
 This repo enables AdTech Finance teams to:
 
@@ -16,7 +16,7 @@ This repo enables AdTech Finance teams to:
 - **Industry Insights**: Compare performance across different advertiser verticals
 - **Data-Driven Decisions**: Use SQL analytics to drive strategic recommendations
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Database**: SQLite (relational database)
 - **Query Language**: SQL (advanced analytical queries)
@@ -24,7 +24,7 @@ This repo enables AdTech Finance teams to:
 - **Visualization**: Chart.js (interactive charts)
 - **Frontend**: HTML5, CSS3, JavaScript
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 amazon_ads_analytics/
@@ -38,7 +38,7 @@ amazon_ads_analytics/
 └── README.md                 # This file
 ```
 
-## 📈 Key Features
+##  Key Features
 
 ### 1. Database Design
 - **3 normalized tables**: advertisers, campaigns, campaign_daily_metrics
@@ -70,7 +70,7 @@ amazon_ads_analytics/
 - **Campaign Performance Table**: Top 10 campaigns with color-coded metrics
 - **Responsive Design**: Works on desktop, tablet, and mobile
 
-## 🚀 How to Use
+##  How to Use
 
 ### Step 1: Build the Database
 ```bash
@@ -97,7 +97,7 @@ xdg-open dashboard.html
 start dashboard.html
 ```
 
-## 💡 SQL Skills Demonstrated
+##  SQL Skills Demonstrated
 
 ### Advanced Query Techniques
 - **Aggregations**: SUM, COUNT, AVG, ROUND
@@ -117,7 +117,7 @@ Conversion Rate = (Conversions / Clicks) * 100
 ROI = ((Revenue - Spend) / Spend) * 100
 ```
 
-## 📊 Sample Insights
+##  Sample Insights
 
 Based on the dummy January 2025 data:
 
@@ -127,7 +127,7 @@ Based on the dummy January 2025 data:
 4. **Campaign Type**: Sponsored Products outperforming Display
 5. **Industry Leader**: Home & Kitchen showing highest profit margins
 
-## 🎨 Dashboard Design
+##  Dashboard Design
 
 The dashboard follows Amazon's design language:
 - **Colors**: Amazon Orange (#FF9900) as primary, complementary blues/greens
@@ -135,7 +135,7 @@ The dashboard follows Amazon's design language:
 - **Layout**: Card-based design with clear hierarchy
 - **Interactivity**: Hover effects, animated charts, responsive grid
 
-## 📝 Key Takeaways :
+##  Key Takeaways :
 
 This project demonstrates:
 
@@ -146,7 +146,7 @@ This project demonstrates:
 ✅ **End-to-End Thinking**: From data modeling to insights delivery  
 ✅ **Real-World Application**: Solves actual Amazon Ads Finance problems  
 
-## 🔄 Extensibility
+##  Extensibility
 
 This platform can be extended with:
 - Attribution modeling (multi-touch attribution)
@@ -156,7 +156,7 @@ This platform can be extended with:
 - Machine learning for budget optimization
 - Automated reporting and alerts
 
-## 📧 Questions?
+##  Questions?
 
 This project was built to demonstrate Business Intelligence capabilities for Ads Tech Finance roles. The SQL queries, data model, and dashboard are designed to showcase real-world analytical thinking and technical execution.
 
