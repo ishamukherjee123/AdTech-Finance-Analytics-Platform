@@ -1,4 +1,4 @@
-# Amazon Ads Finance Analytics Platform
+# Amazon Ads Finance Analytics Platform (An example of Amazon is used because it represents active online shopping sites
 
 **A Business Intelligence Project for Amazon Ads Finance Department**
 
@@ -8,7 +8,7 @@ This project demonstrates advanced Business Intelligence capabilities through a 
 
 ## 🎯 Business Value
 
-This platform enables Amazon Ads Finance teams to:
+This repo enables AdTech Finance teams to:
 
 - **Monitor Performance**: Real-time tracking of campaign KPIs (ROAS, CTR, CPC, conversions)
 - **Optimize Budgets**: Identify underperforming campaigns and reallocate budgets to high-performers
@@ -119,7 +119,7 @@ ROI = ((Revenue - Spend) / Spend) * 100
 
 ## 📊 Sample Insights
 
-Based on the January 2025 data:
+Based on the dummy January 2025 data:
 
 1. **Overall ROAS**: ~1.5x (healthy performance)
 2. **Top Performer**: Kitchen Essentials campaign (1.75 ROAS)
@@ -135,7 +135,7 @@ The dashboard follows Amazon's design language:
 - **Layout**: Card-based design with clear hierarchy
 - **Interactivity**: Hover effects, animated charts, responsive grid
 
-## 📝 Key Takeaways for Hiring Managers
+## 📝 Key Takeaways :
 
 This project demonstrates:
 
@@ -158,10 +158,10 @@ This platform can be extended with:
 
 ## 📧 Questions?
 
-This project was built to demonstrate Business Intelligence capabilities for Amazon Ads Finance roles. The SQL queries, data model, and dashboard are designed to showcase real-world analytical thinking and technical execution.
+This project was built to demonstrate Business Intelligence capabilities for Ads Tech Finance roles. The SQL queries, data model, and dashboard are designed to showcase real-world analytical thinking and technical execution.
 
 ---
 
 **Built with**: SQL | Python | HTML/CSS/JS | Chart.js  
 **Focus**: Business Intelligence | Data Analytics | Financial Reporting  
-**Purpose**: Amazon Ads Finance Interview Portfolio
+**Purpose**: Ads Tech Finance Interview Portfolio
