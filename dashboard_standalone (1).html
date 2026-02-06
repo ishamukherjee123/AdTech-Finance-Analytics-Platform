@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdTech Finance Analytics Platform</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #FF9900;
+            --secondary: #146EB4;
+            --success: #067D62;
+            --warning: #F0B323;
+            --danger: #D13212;
+            --dark: #131A22;
+            --light: #EAEDED;
+            --card-bg: #FFFFFF;
+            --text-primary: #0F1111;
+            --text-secondary: #565959;
+            --border: #D5D9D9;
+            --gradient-start: #232F3E;
+            --gradient-end: #131A22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(20, 110, 180, 0.1) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            color: var(--light);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .header .period {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .kpi-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .kpi-card.success {
+            border-left-color: var(--success);
+        }
+        
+        .kpi-card.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .kpi-card.info {
+            border-left-color: var(--secondary);
+        }
+        
+        .kpi-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+        
+        .kpi-change {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .kpi-change.positive {
+            color: var(--success);
+        }
+        
+        .kpi-change.negative {
+            color: var(--danger);
+        }
+        
+        /* Chart Sections */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+        
+        .chart-container.tall {
+            height: 450px;
+        }
+        
+        /* Table Styling */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        thead {
+            background: var(--gradient-start);
+            color: white;
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tbody tr:hover {
+            background: rgba(255, 153, 0, 0.05);
+        }
+        
+        .metric-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .badge-high {
+            background: rgba(6, 125, 98, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-medium {
+            background: rgba(240, 179, 35, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-low {
+            background: rgba(209, 50, 18, 0.1);
+            color: var(--danger);
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kpi-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>AdTech Finance Analytics Platform</h1>
+            <p>Real-time campaign performance monitoring and budget optimization insights</p>
+            <span class="period">January 2025 Performance Report</span>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loading" class="loading">Loading analytics data</div>
+        
+        <!-- KPI Cards -->
+        <div id="kpi-section" style="display: none;">
+            <div class="kpi-grid" id="kpi-cards"></div>
+        </div>
+        
+        <!-- Charts -->
+        <div id="charts-section" style="display: none;">
+            <!-- Daily Trends -->
+            <div class="chart-card full-width">
+                <h2 class="chart-title">Daily Performance Trends</h2>
+                <div class="chart-container tall">
+                    <canvas id="dailyTrendsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-grid">
+                <!-- Campaign Type Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Performance by Campaign Type</h2>
+                    <div class="chart-container">
+                        <canvas id="campaignTypeChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Industry Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Industry Performance (ROAS)</h2>
+                    <div class="chart-container">
+                        <canvas id="industryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-grid">
+                <!-- Budget Utilization -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Budget Utilization by Advertiser</h2>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Weekly Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Week-over-Week ROAS Trend</h2>
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Campaign Performance Table -->
+            <div class="chart-card full-width">
+                <h2 class="chart-title">Top Campaign Performance Summary</h2>
+                <div class="table-container">
+                    <table id="campaignTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js default configurations
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+        Chart.defaults.color = '#565959';
+        
+        const colors = {
+            primary: '#FF9900',
+            secondary: '#146EB4',
+            success: '#067D62',
+            warning: '#F0B323',
+            danger: '#D13212',
+            purple: '#8B46FF',
+            teal: '#00A8A8'
+        };
+        
+        // Embedded data (no external file needed)
+        const data = {
+  "campaign_performance": [
+    {
+      "campaign_id": 104,
+      "campaign_name": "Kitchen Essentials",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 675575,
+      "total_clicks": 10922,
+      "total_spend": 106595.0,
+      "total_conversions": 1505,
+      "total_revenue": 205146.0,
+      "roas": 1.92,
+      "ctr_percent": 1.62,
+      "cpc": 9.76,
+      "conversion_rate_percent": 13.78,
+      "profit": 98551.0,
+      "roi_percent": 92.45
+    },
+    {
+      "campaign_id": 107,
+      "campaign_name": "Protein Powder Range",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "FitLife Nutrition",
+      "industry": "Health & Wellness",
+      "total_impressions": 372393,
+      "total_clicks": 5399,
+      "total_spend": 62369.0,
+      "total_conversions": 863,
+      "total_revenue": 117943.0,
+      "roas": 1.89,
+      "ctr_percent": 1.45,
+      "cpc": 11.55,
+      "conversion_rate_percent": 15.98,
+      "profit": 55574.0,
+      "roi_percent": 89.11
+    },
+    {
+      "campaign_id": 109,
+      "campaign_name": "Organic Snacks",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "GreenLeaf Organics",
+      "industry": "Grocery",
+      "total_impressions": 436377,
+      "total_clicks": 6532,
+      "total_spend": 69628.0,
+      "total_conversions": 962,
+      "total_revenue": 129612.0,
+      "roas": 1.86,
+      "ctr_percent": 1.5,
+      "cpc": 10.66,
+      "conversion_rate_percent": 14.73,
+      "profit": 59984.0,
+      "roi_percent": 86.15
+    },
+    {
+      "campaign_id": 106,
+      "campaign_name": "Furniture Sale",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 329788,
+      "total_clicks": 4935,
+      "total_spend": 44449.0,
+      "total_conversions": 499,
+      "total_revenue": 74134.0,
+      "roas": 1.67,
+      "ctr_percent": 1.5,
+      "cpc": 9.01,
+      "conversion_rate_percent": 10.11,
+      "profit": 29685.0,
+      "roi_percent": 66.78
+    },
+    {
+      "campaign_id": 101,
+      "campaign_name": "Premium Headphones - Q1",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 404105,
+      "total_clicks": 6046,
+      "total_spend": 75873.0,
+      "total_conversions": 801,
+      "total_revenue": 116493.0,
+      "roas": 1.54,
+      "ctr_percent": 1.5,
+      "cpc": 12.55,
+      "conversion_rate_percent": 13.25,
+      "profit": 40620.0,
+      "roi_percent": 53.54
+    },
+    {
+      "campaign_id": 111,
+      "campaign_name": "Winter Collection",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "StyleHub Fashion",
+      "industry": "Apparel",
+      "total_impressions": 525553,
+      "total_clicks": 8291,
+      "total_spend": 101722.0,
+      "total_conversions": 1116,
+      "total_revenue": 154809.0,
+      "roas": 1.52,
+      "ctr_percent": 1.58,
+      "cpc": 12.27,
+      "conversion_rate_percent": 13.46,
+      "profit": 53087.0,
+      "roi_percent": 52.19
+    },
+    {
+      "campaign_id": 108,
+      "campaign_name": "Vitamins & Supplements",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "FitLife Nutrition",
+      "industry": "Health & Wellness",
+      "total_impressions": 271175,
+      "total_clicks": 4299,
+      "total_spend": 48775.0,
+      "total_conversions": 572,
+      "total_revenue": 72477.0,
+      "roas": 1.49,
+      "ctr_percent": 1.59,
+      "cpc": 11.35,
+      "conversion_rate_percent": 13.31,
+      "profit": 23702.0,
+      "roi_percent": 48.59
+    },
+    {
+      "campaign_id": 110,
+      "campaign_name": "Green Cleaning Products",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "GreenLeaf Organics",
+      "industry": "Grocery",
+      "total_impressions": 108067,
+      "total_clicks": 1595,
+      "total_spend": 18231.0,
+      "total_conversions": 208,
+      "total_revenue": 26509.0,
+      "roas": 1.45,
+      "ctr_percent": 1.48,
+      "cpc": 11.43,
+      "conversion_rate_percent": 13.04,
+      "profit": 8278.0,
+      "roi_percent": 45.41
+    },
+    {
+      "campaign_id": 103,
+      "campaign_name": "Gaming Accessories",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 147442,
+      "total_clicks": 2270,
+      "total_spend": 25668.0,
+      "total_conversions": 226,
+      "total_revenue": 35295.0,
+      "roas": 1.38,
+      "ctr_percent": 1.54,
+      "cpc": 11.31,
+      "conversion_rate_percent": 9.96,
+      "profit": 9627.0,
+      "roi_percent": 37.51
+    },
+    {
+      "campaign_id": 112,
+      "campaign_name": "Accessories Campaign",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "StyleHub Fashion",
+      "industry": "Apparel",
+      "total_impressions": 469977,
+      "total_clicks": 7043,
+      "total_spend": 90956.0,
+      "total_conversions": 953,
+      "total_revenue": 125261.0,
+      "roas": 1.38,
+      "ctr_percent": 1.5,
+      "cpc": 12.91,
+      "conversion_rate_percent": 13.53,
+      "profit": 34305.0,
+      "roi_percent": 37.72
+    },
+    {
+      "campaign_id": 105,
+      "campaign_name": "Home Decor Collection",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 591284,
+      "total_clicks": 9693,
+      "total_spend": 125985.0,
+      "total_conversions": 1057,
+      "total_revenue": 144443.0,
+      "roas": 1.15,
+      "ctr_percent": 1.64,
+      "cpc": 13.0,
+      "conversion_rate_percent": 10.9,
+      "profit": 18458.0,
+      "roi_percent": 14.65
+    },
+    {
+      "campaign_id": 102,
+      "campaign_name": "Smart Watches Launch",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 495938,
+      "total_clicks": 7239,
+      "total_spend": 94141.0,
+      "total_conversions": 651,
+      "total_revenue": 98760.0,
+      "roas": 1.05,
+      "ctr_percent": 1.46,
+      "cpc": 13.0,
+      "conversion_rate_percent": 8.99,
+      "profit": 4619.0,
+      "roi_percent": 4.91
+    }
+  ],
+  "daily_trends": [
+    {
+      "date": "2025-01-01",
+      "daily_impressions": 131216,
+      "daily_clicks": 1943,
+      "daily_spend": 23583.0,
+      "daily_conversions": 248,
+      "daily_revenue": 34199.0,
+      "daily_roas": 1.45,
+      "daily_ctr": 1.48
+    },
+    {
+      "date": "2025-01-02",
+      "daily_impressions": 130727,
+      "daily_clicks": 1945,
+      "daily_spend": 23966.0,
+      "daily_conversions": 264,
+      "daily_revenue": 35365.0,
+      "daily_roas": 1.48,
+      "daily_ctr": 1.49
+    },
+    {
+      "date": "2025-01-03",
+      "daily_impressions": 127577,
+      "daily_clicks": 1931,
+      "daily_spend": 23914.0,
+      "daily_conversions": 259,
+      "daily_revenue": 34003.0,
+      "daily_roas": 1.42,
+      "daily_ctr": 1.51
+    },
+    {
+      "date": "2025-01-04",
+      "daily_impressions": 125837,
+      "daily_clicks": 2032,
+      "daily_spend": 23730.0,
+      "daily_conversions": 263,
+      "daily_revenue": 36076.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.61
+    },
+    {
+      "date": "2025-01-05",
+      "daily_impressions": 139464,
+      "daily_clicks": 2166,
+      "daily_spend": 25675.0,
+      "daily_conversions": 291,
+      "daily_revenue": 37634.0,
+      "daily_roas": 1.47,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-06",
+      "daily_impressions": 137380,
+      "daily_clicks": 2146,
+      "daily_spend": 25345.0,
+      "daily_conversions": 286,
+      "daily_revenue": 38349.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-07",
+      "daily_impressions": 137466,
+      "daily_clicks": 2150,
+      "daily_spend": 25690.0,
+      "daily_conversions": 280,
+      "daily_revenue": 37695.0,
+      "daily_roas": 1.47,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-08",
+      "daily_impressions": 136777,
+      "daily_clicks": 2108,
+      "daily_spend": 25583.0,
+      "daily_conversions": 273,
+      "daily_revenue": 36531.0,
+      "daily_roas": 1.43,
+      "daily_ctr": 1.54
+    },
+    {
+      "date": "2025-01-09",
+      "daily_impressions": 138086,
+      "daily_clicks": 2102,
+      "daily_spend": 25513.0,
+      "daily_conversions": 263,
+      "daily_revenue": 37301.0,
+      "daily_roas": 1.46,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-10",
+      "daily_impressions": 154837,
+      "daily_clicks": 2405,
+      "daily_spend": 27684.0,
+      "daily_conversions": 293,
+      "daily_revenue": 41708.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-11",
+      "daily_impressions": 153766,
+      "daily_clicks": 2276,
+      "daily_spend": 26505.0,
+      "daily_conversions": 305,
+      "daily_revenue": 42823.0,
+      "daily_roas": 1.62,
+      "daily_ctr": 1.48
+    },
+    {
+      "date": "2025-01-12",
+      "daily_impressions": 150807,
+      "daily_clicks": 2342,
+      "daily_spend": 27799.0,
+      "daily_conversions": 291,
+      "daily_revenue": 42122.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-13",
+      "daily_impressions": 155149,
+      "daily_clicks": 2350,
+      "daily_spend": 27320.0,
+      "daily_conversions": 301,
+      "daily_revenue": 41468.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.51
+    },
+    {
+      "date": "2025-01-14",
+      "daily_impressions": 155463,
+      "daily_clicks": 2351,
+      "daily_spend": 26957.0,
+      "daily_conversions": 294,
+      "daily_revenue": 42608.0,
+      "daily_roas": 1.58,
+      "daily_ctr": 1.51
+    },
+    {
+      "date": "2025-01-15",
+      "daily_impressions": 159399,
+      "daily_clicks": 2606,
+      "daily_spend": 28119.0,
+      "daily_conversions": 310,
+      "daily_revenue": 44843.0,
+      "daily_roas": 1.59,
+      "daily_ctr": 1.63
+    },
+    {
+      "date": "2025-01-16",
+      "daily_impressions": 158135,
+      "daily_clicks": 2464,
+      "daily_spend": 28885.0,
+      "daily_conversions": 316,
+      "daily_revenue": 41980.0,
+      "daily_roas": 1.45,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-17",
+      "daily_impressions": 162544,
+      "daily_clicks": 2492,
+      "daily_spend": 29018.0,
+      "daily_conversions": 293,
+      "daily_revenue": 43785.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-18",
+      "daily_impressions": 159738,
+      "daily_clicks": 2489,
+      "daily_spend": 28645.0,
+      "daily_conversions": 313,
+      "daily_revenue": 42811.0,
+      "daily_roas": 1.49,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-19",
+      "daily_impressions": 164793,
+      "daily_clicks": 2502,
+      "daily_spend": 28131.0,
+      "daily_conversions": 309,
+      "daily_revenue": 43256.0,
+      "daily_roas": 1.54,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-20",
+      "daily_impressions": 171256,
+      "daily_clicks": 2509,
+      "daily_spend": 30000.0,
+      "daily_conversions": 325,
+      "daily_revenue": 47027.0,
+      "daily_roas": 1.57,
+      "daily_ctr": 1.47
+    },
+    {
+      "date": "2025-01-21",
+      "daily_impressions": 169997,
+      "daily_clicks": 2649,
+      "daily_spend": 30122.0,
+      "daily_conversions": 354,
+      "daily_revenue": 45576.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-22",
+      "daily_impressions": 171368,
+      "daily_clicks": 2628,
+      "daily_spend": 30302.0,
+      "daily_conversions": 328,
+      "daily_revenue": 43734.0,
+      "daily_roas": 1.44,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-23",
+      "daily_impressions": 166705,
+      "daily_clicks": 2626,
+      "daily_spend": 29943.0,
+      "daily_conversions": 331,
+      "daily_revenue": 45023.0,
+      "daily_roas": 1.5,
+      "daily_ctr": 1.58
+    },
+    {
+      "date": "2025-01-24",
+      "daily_impressions": 173986,
+      "daily_clicks": 2605,
+      "daily_spend": 30125.0,
+      "daily_conversions": 316,
+      "daily_revenue": 47256.0,
+      "daily_roas": 1.57,
+      "daily_ctr": 1.5
+    },
+    {
+      "date": "2025-01-25",
+      "daily_impressions": 169144,
+      "daily_clicks": 2692,
+      "daily_spend": 30020.0,
+      "daily_conversions": 332,
+      "daily_revenue": 45946.0,
+      "daily_roas": 1.53,
+      "daily_ctr": 1.59
+    },
+    {
+      "date": "2025-01-26",
+      "daily_impressions": 168050,
+      "daily_clicks": 2565,
+      "daily_spend": 31016.0,
+      "daily_conversions": 333,
+      "daily_revenue": 43845.0,
+      "daily_roas": 1.41,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-27",
+      "daily_impressions": 173838,
+      "daily_clicks": 2684,
+      "daily_spend": 30241.0,
+      "daily_conversions": 329,
+      "daily_revenue": 45247.0,
+      "daily_roas": 1.5,
+      "daily_ctr": 1.54
+    },
+    {
+      "date": "2025-01-28",
+      "daily_impressions": 172661,
+      "daily_clicks": 2650,
+      "daily_spend": 30756.0,
+      "daily_conversions": 333,
+      "daily_revenue": 44256.0,
+      "daily_roas": 1.44,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-29",
+      "daily_impressions": 172824,
+      "daily_clicks": 2637,
+      "daily_spend": 30163.0,
+      "daily_conversions": 326,
+      "daily_revenue": 47514.0,
+      "daily_roas": 1.58,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-30",
+      "daily_impressions": 167744,
+      "daily_clicks": 2673,
+      "daily_spend": 29771.0,
+      "daily_conversions": 327,
+      "daily_revenue": 45752.0,
+      "daily_roas": 1.54,
+      "daily_ctr": 1.59
+    },
+    {
+      "date": "2025-01-31",
+      "daily_impressions": 170940,
+      "daily_clicks": 2546,
+      "daily_spend": 29871.0,
+      "daily_conversions": 327,
+      "daily_revenue": 45149.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.49
+    }
+  ],
+  "budget_utilization": [
+    {
+      "advertiser_name": "HomeStyle Living",
+      "monthly_budget": 200000.0,
+      "actual_spend_mtd": 277029.0,
+      "budget_utilization_percent": 138.51,
+      "remaining_budget": -77029.0,
+      "active_campaigns": 3,
+      "avg_daily_spend": 3297.96,
+      "projected_monthly_spend": 102236.89,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "TechGear Pro",
+      "monthly_budget": 150000.0,
+      "actual_spend_mtd": 195682.0,
+      "budget_utilization_percent": 130.45,
+      "remaining_budget": -45682.0,
+      "active_campaigns": 3,
+      "avg_daily_spend": 2476.99,
+      "projected_monthly_spend": 76786.61,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "FitLife Nutrition",
+      "monthly_budget": 100000.0,
+      "actual_spend_mtd": 111144.0,
+      "budget_utilization_percent": 111.14,
+      "remaining_budget": -11144.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 1916.28,
+      "projected_monthly_spend": 59404.55,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "StyleHub Fashion",
+      "monthly_budget": 180000.0,
+      "actual_spend_mtd": 192678.0,
+      "budget_utilization_percent": 107.04,
+      "remaining_budget": -12678.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 3107.71,
+      "projected_monthly_spend": 96339.0,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "GreenLeaf Organics",
+      "monthly_budget": 120000.0,
+      "actual_spend_mtd": 87859.0,
+      "budget_utilization_percent": 73.22,
+      "remaining_budget": 32141.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 2043.23,
+      "projected_monthly_spend": 63340.21,
+      "pacing_status": "Under Pace"
+    }
+  ],
+  "campaign_type_performance": [
+    {
+      "campaign_type": "Sponsored Products",
+      "num_campaigns": 5,
+      "total_spend": 416187.0,
+      "total_revenue": 724003.0,
+      "avg_roas": 1.74,
+      "avg_cpc": 11.19,
+      "avg_ctr": 1.54,
+      "avg_conversion_rate": 14.11,
+      "roi_percent": 73.96
+    },
+    {
+      "campaign_type": "Sponsored Display",
+      "num_campaigns": 3,
+      "total_spend": 88348.0,
+      "total_revenue": 135938.0,
+      "avg_roas": 1.54,
+      "avg_cpc": 10.04,
+      "avg_ctr": 1.5,
+      "avg_conversion_rate": 10.6,
+      "roi_percent": 53.87
+    },
+    {
+      "campaign_type": "Sponsored Brands",
+      "num_campaigns": 4,
+      "total_spend": 359857.0,
+      "total_revenue": 440941.0,
+      "avg_roas": 1.23,
+      "avg_cpc": 12.73,
+      "avg_ctr": 1.55,
+      "avg_conversion_rate": 11.43,
+      "roi_percent": 22.53
+    }
+  ],
+  "industry_performance": [
+    {
+      "industry": "Home & Kitchen",
+      "num_advertisers": 1,
+      "num_campaigns": 3,
+      "total_spend": 277029.0,
+      "total_revenue": 423723.0,
+      "avg_roas": 1.53,
+      "total_profit": 146694.0,
+      "avg_spend_per_advertiser": 277029.0
+    },
+    {
+      "industry": "Apparel",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 192678.0,
+      "total_revenue": 280070.0,
+      "avg_roas": 1.45,
+      "total_profit": 87392.0,
+      "avg_spend_per_advertiser": 192678.0
+    },
+    {
+      "industry": "Health & Wellness",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 111144.0,
+      "total_revenue": 190420.0,
+      "avg_roas": 1.71,
+      "total_profit": 79276.0,
+      "avg_spend_per_advertiser": 111144.0
+    },
+    {
+      "industry": "Grocery",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 87859.0,
+      "total_revenue": 156121.0,
+      "avg_roas": 1.78,
+      "total_profit": 68262.0,
+      "avg_spend_per_advertiser": 87859.0
+    },
+    {
+      "industry": "Electronics",
+      "num_advertisers": 1,
+      "num_campaigns": 3,
+      "total_spend": 195682.0,
+      "total_revenue": 250548.0,
+      "avg_roas": 1.28,
+      "total_profit": 54866.0,
+      "avg_spend_per_advertiser": 195682.0
+    }
+  ],
+  "weekly_performance": [
+    {
+      "week_period": "Week 1",
+      "weekly_spend": 171903.0,
+      "weekly_revenue": 253321.0,
+      "weekly_conversions": 1891,
+      "weekly_roas": 1.47,
+      "weekly_profit": 81418.0
+    },
+    {
+      "week_period": "Week 2",
+      "weekly_spend": 187361.0,
+      "weekly_revenue": 284561.0,
+      "weekly_conversions": 2020,
+      "weekly_roas": 1.52,
+      "weekly_profit": 97200.0
+    },
+    {
+      "week_period": "Week 3",
+      "weekly_spend": 202920.0,
+      "weekly_revenue": 309278.0,
+      "weekly_conversions": 2220,
+      "weekly_roas": 1.52,
+      "weekly_profit": 106358.0
+    },
+    {
+      "week_period": "Week 4+",
+      "weekly_spend": 302208.0,
+      "weekly_revenue": 453722.0,
+      "weekly_conversions": 3282,
+      "weekly_roas": 1.5,
+      "weekly_profit": 151514.0
+    }
+  ],
+  "top_performers": [
+    {
+      "category": "Top Performer",
+      "campaign_name": "Kitchen Essentials",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 106595.0,
+      "total_revenue": 205146.0,
+      "roas": 1.92,
+      "conversions": 1505
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Protein Powder Range",
+      "advertiser_name": "FitLife Nutrition",
+      "total_spend": 62369.0,
+      "total_revenue": 117943.0,
+      "roas": 1.89,
+      "conversions": 863
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Organic Snacks",
+      "advertiser_name": "GreenLeaf Organics",
+      "total_spend": 69628.0,
+      "total_revenue": 129612.0,
+      "roas": 1.86,
+      "conversions": 962
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Furniture Sale",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 44449.0,
+      "total_revenue": 74134.0,
+      "roas": 1.67,
+      "conversions": 499
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Premium Headphones - Q1",
+      "advertiser_name": "TechGear Pro",
+      "total_spend": 75873.0,
+      "total_revenue": 116493.0,
+      "roas": 1.54,
+      "conversions": 801
+    }
+  ],
+  "bottom_performers": [
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Smart Watches Launch",
+      "advertiser_name": "TechGear Pro",
+      "total_spend": 94141.0,
+      "total_revenue": 98760.0,
+      "roas": 1.05,
+      "conversions": 651
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Home Decor Collection",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 125985.0,
+      "total_revenue": 144443.0,
+      "roas": 1.15,
+      "conversions": 1057
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Gaming Accessories",
+      "advertiser_name": "TechGear Pro",
+      "total_spend": 25668.0,
+      "total_revenue": 35295.0,
+      "roas": 1.38,
+      "conversions": 226
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Accessories Campaign",
+      "advertiser_name": "StyleHub Fashion",
+      "total_spend": 90956.0,
+      "total_revenue": 125261.0,
+      "roas": 1.38,
+      "conversions": 953
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Green Cleaning Products",
+      "advertiser_name": "GreenLeaf Organics",
+      "total_spend": 18231.0,
+      "total_revenue": 26509.0,
+      "roas": 1.45,
+      "conversions": 208
+    }
+  ],
+  "summary_metrics": [
+    {
+      "total_advertisers": 5,
+      "total_campaigns": 12,
+      "total_impressions": 4827674,
+      "total_clicks": 74264,
+      "total_spend": 864392.0,
+      "total_conversions": 9413,
+      "total_revenue": 1300882.0,
+      "overall_roas": 1.5,
+      "overall_ctr": 1.54,
+      "overall_cpc": 11.64,
+      "total_profit": 436490.0
+    }
+  ]
+};
+        
+        // Process data immediately
+        (function() {
+                console.log('Data loaded:', data);
+                renderKPIs(data);
+                renderCharts(data);
+                renderTable(data);
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('kpi-section').style.display = 'block';
+                document.getElementById('charts-section').style.display = 'block';
+        })();
+        
+        function renderKPIs(data) {
+            const summary = data.summary_metrics[0];
+            const kpiContainer = document.getElementById('kpi-cards');
+            
+            const kpis = [
+                {
+                    label: 'Total Revenue',
+                    value: `$${(summary.total_revenue / 1000).toFixed(1)}K`,
+                    change: '+12.5% vs Last Month',
+                    class: 'success',
+                    positive: true
+                },
+                {
+                    label: 'Total Spend',
+                    value: `$${(summary.total_spend / 1000).toFixed(1)}K`,
+                    change: '+8.2% vs Last Month',
+                    class: 'info',
+                    positive: false
+                },
+                {
+                    label: 'Overall ROAS',
+                    value: summary.overall_roas.toFixed(2),
+                    change: summary.overall_roas >= 1.5 ? 'Excellent Performance' : 'Good Performance',
+                    class: summary.overall_roas >= 1.5 ? 'success' : 'warning',
+                    positive: true
+                },
+                {
+                    label: 'Total Profit',
+                    value: `$${(summary.total_profit / 1000).toFixed(1)}K`,
+                    change: `${summary.overall_roas >= 1.5 ? '+' : ''}${((summary.total_profit / summary.total_spend) * 100).toFixed(1)}% Margin`,
+                    class: 'success',
+                    positive: true
+                },
+                {
+                    label: 'Total Conversions',
+                    value: summary.total_conversions.toLocaleString(),
+                    change: `${summary.overall_ctr}% CTR`,
+                    class: 'info',
+                    positive: true
+                },
+                {
+                    label: 'Active Campaigns',
+                    value: summary.total_campaigns,
+                    change: `${summary.total_advertisers} Advertisers`,
+                    class: 'info',
+                    positive: false
+                }
+            ];
+            
+            kpis.forEach(kpi => {
+                const card = document.createElement('div');
+                card.className = `kpi-card ${kpi.class}`;
+                card.innerHTML = `
+                    <div class="kpi-label">${kpi.label}</div>
+                    <div class="kpi-value">${kpi.value}</div>
+                    <div class="kpi-change ${kpi.positive ? 'positive' : ''}">${kpi.change}</div>
+                `;
+                kpiContainer.appendChild(card);
+            });
+        }
+        
+        function renderCharts(data) {
+            // Daily Trends Chart
+            const dailyCtx = document.getElementById('dailyTrendsChart');
+            new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: data.daily_trends.map(d => d.date.substring(5)),
+                    datasets: [
+                        {
+                            label: 'Revenue ($)',
+                            data: data.daily_trends.map(d => d.daily_revenue),
+                            borderColor: colors.success,
+                            backgroundColor: colors.success + '20',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Spend ($)',
+                            data: data.daily_trends.map(d => d.daily_spend),
+                            borderColor: colors.danger,
+                            backgroundColor: colors.danger + '20',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'ROAS',
+                            data: data.daily_trends.map(d => d.daily_roas),
+                            borderColor: colors.primary,
+                            backgroundColor: 'transparent',
+                            tension: 0.4,
+                            borderWidth: 3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Amount ($)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Campaign Type Performance Chart
+            const typeCtx = document.getElementById('campaignTypeChart');
+            new Chart(typeCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.campaign_type_performance.map(d => d.campaign_type),
+                    datasets: [
+                        {
+                            label: 'ROAS',
+                            data: data.campaign_type_performance.map(d => d.avg_roas),
+                            backgroundColor: [colors.primary, colors.secondary, colors.purple],
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Industry Performance Chart
+            const industryCtx = document.getElementById('industryChart');
+            new Chart(industryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.industry_performance.map(d => d.industry),
+                    datasets: [{
+                        data: data.industry_performance.map(d => d.avg_roas),
+                        backgroundColor: [
+                            colors.primary,
+                            colors.secondary,
+                            colors.success,
+                            colors.purple,
+                            colors.teal
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+            
+            // Budget Utilization Chart
+            const budgetCtx = document.getElementById('budgetChart');
+            new Chart(budgetCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.budget_utilization.map(d => d.advertiser_name),
+                    datasets: [
+                        {
+                            label: 'Budget Used (%)',
+                            data: data.budget_utilization.map(d => d.budget_utilization_percent),
+                            backgroundColor: data.budget_utilization.map(d => 
+                                d.pacing_status === 'Over Pace' ? colors.danger : 
+                                d.pacing_status === 'Under Pace' ? colors.warning : colors.success
+                            ),
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Budget Utilization (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Weekly Performance Chart
+            const weeklyCtx = document.getElementById('weeklyChart');
+            new Chart(weeklyCtx, {
+                type: 'line',
+                data: {
+                    labels: data.weekly_performance.map(d => d.week_period),
+                    datasets: [{
+                        label: 'Weekly ROAS',
+                        data: data.weekly_performance.map(d => d.weekly_roas),
+                        borderColor: colors.primary,
+                        backgroundColor: colors.primary + '30',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function renderTable(data) {
+            const table = document.getElementById('campaignTable');
+            const campaigns = data.campaign_performance.slice(0, 10);
+            
+            let html = `
+                <thead>
+                    <tr>
+                        <th>Campaign Name</th>
+                        <th>Advertiser</th>
+                        <th>Type</th>
+                        <th>Spend</th>
+                        <th>Revenue</th>
+                        <th>ROAS</th>
+                        <th>Conversions</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            campaigns.forEach(campaign => {
+                const roasClass = campaign.roas >= 1.8 ? 'badge-high' : 
+                                 campaign.roas >= 1.2 ? 'badge-medium' : 'badge-low';
+                
+                html += `
+                    <tr>
+                        <td><strong>${campaign.campaign_name}</strong></td>
+                        <td>${campaign.advertiser_name}</td>
+                        <td>${campaign.campaign_type}</td>
+                        <td>$${campaign.total_spend.toLocaleString()}</td>
+                        <td>$${campaign.total_revenue.toLocaleString()}</td>
+                        <td><span class="metric-badge ${roasClass}">${campaign.roas.toFixed(2)}</span></td>
+                        <td>${campaign.total_conversions}</td>
+                        <td>${campaign.ctr_percent.toFixed(2)}% CTR</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody>';
+            table.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
