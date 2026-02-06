@@ -219,7 +219,6 @@ Pinpoints where campaigns are losing customers (creative vs landing page) to gui
 
 ---
 
-## Interview Talking Points
 
 ### Why These Queries Stand Out:
 
@@ -242,7 +241,7 @@ Pinpoints where campaigns are losing customers (creative vs landing page) to gui
 
 ### Performance Considerations:
 
-**If asked "How would you optimize these for production?"**
+** "How would you optimize these for production?"**
 
 1. **Indexes**: Add indexes on:
    - campaign_daily_metrics(campaign_id, date)
@@ -278,4 +277,3 @@ HomeStyle Living   | 72.3%             | On Pace       | $198,450
 TechGear Pro       | 45.8%             | Under Pace    | $68,700
 ```
 
-This visual output makes it easy to discuss insights during the interview!
