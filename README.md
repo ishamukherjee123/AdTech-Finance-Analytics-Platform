@@ -1,4 +1,4 @@
-# Amazon Ads Finance Analytics Platform (An example of Amazon is used because it represents active online shopping sites
+# Amazon Ads Finance Analytics Platform (An example of Amazon is used because it represents active online shopping sites)
 
 **A Business Intelligence Project for Amazon Ads Finance Department**
 
