@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Ads Finance Analytics Platform</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #FF9900;
+            --secondary: #146EB4;
+            --success: #067D62;
+            --warning: #F0B323;
+            --danger: #D13212;
+            --dark: #131A22;
+            --light: #EAEDED;
+            --card-bg: #FFFFFF;
+            --text-primary: #0F1111;
+            --text-secondary: #565959;
+            --border: #D5D9D9;
+            --gradient-start: #232F3E;
+            --gradient-end: #131A22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(20, 110, 180, 0.1) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            color: var(--light);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        .header .period {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .kpi-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .kpi-card.success {
+            border-left-color: var(--success);
+        }
+        
+        .kpi-card.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .kpi-card.info {
+            border-left-color: var(--secondary);
+        }
+        
+        .kpi-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+        
+        .kpi-change {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .kpi-change.positive {
+            color: var(--success);
+        }
+        
+        .kpi-change.negative {
+            color: var(--danger);
+        }
+        
+        /* Chart Sections */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .chart-card.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+        
+        .chart-container.tall {
+            height: 450px;
+        }
+        
+        /* Table Styling */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        thead {
+            background: var(--gradient-start);
+            color: white;
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tbody tr:hover {
+            background: rgba(255, 153, 0, 0.05);
+        }
+        
+        .metric-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .badge-high {
+            background: rgba(6, 125, 98, 0.1);
+            color: var(--success);
+        }
+        
+        .badge-medium {
+            background: rgba(240, 179, 35, 0.1);
+            color: var(--warning);
+        }
+        
+        .badge-low {
+            background: rgba(209, 50, 18, 0.1);
+            color: var(--danger);
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kpi-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Amazon Ads Finance Analytics Platform</h1>
+            <p>Real-time campaign performance monitoring and budget optimization insights</p>
+            <span class="period">January 2025 Performance Report</span>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loading" class="loading">Loading analytics data</div>
+        
+        <!-- KPI Cards -->
+        <div id="kpi-section" style="display: none;">
+            <div class="kpi-grid" id="kpi-cards"></div>
+        </div>
+        
+        <!-- Charts -->
+        <div id="charts-section" style="display: none;">
+            <!-- Daily Trends -->
+            <div class="chart-card full-width">
+                <h2 class="chart-title">Daily Performance Trends</h2>
+                <div class="chart-container tall">
+                    <canvas id="dailyTrendsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-grid">
+                <!-- Campaign Type Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Performance by Campaign Type</h2>
+                    <div class="chart-container">
+                        <canvas id="campaignTypeChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Industry Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Industry Performance (ROAS)</h2>
+                    <div class="chart-container">
+                        <canvas id="industryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-grid">
+                <!-- Budget Utilization -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Budget Utilization by Advertiser</h2>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Weekly Performance -->
+                <div class="chart-card">
+                    <h2 class="chart-title">Week-over-Week ROAS Trend</h2>
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Campaign Performance Table -->
+            <div class="chart-card full-width">
+                <h2 class="chart-title">Top Campaign Performance Summary</h2>
+                <div class="table-container">
+                    <table id="campaignTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js default configurations
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+        Chart.defaults.color = '#565959';
+        
+        const colors = {
+            primary: '#FF9900',
+            secondary: '#146EB4',
+            success: '#067D62',
+            warning: '#F0B323',
+            danger: '#D13212',
+            purple: '#8B46FF',
+            teal: '#00A8A8'
+        };
+        
+        // Load and process data
+        fetch('dashboard_data.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data loaded:', data);
+                renderKPIs(data);
+                renderCharts(data);
+                renderTable(data);
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('kpi-section').style.display = 'block';
+                document.getElementById('charts-section').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error loading data:', error);
+                document.getElementById('loading').innerHTML = 'Error loading data. Please check the console.';
+            });
+        
+        function renderKPIs(data) {
+            const summary = data.summary_metrics[0];
+            const kpiContainer = document.getElementById('kpi-cards');
+            
+            const kpis = [
+                {
+                    label: 'Total Revenue',
+                    value: `$${(summary.total_revenue / 1000).toFixed(1)}K`,
+                    change: '+12.5% vs Last Month',
+                    class: 'success',
+                    positive: true
+                },
+                {
+                    label: 'Total Spend',
+                    value: `$${(summary.total_spend / 1000).toFixed(1)}K`,
+                    change: '+8.2% vs Last Month',
+                    class: 'info',
+                    positive: false
+                },
+                {
+                    label: 'Overall ROAS',
+                    value: summary.overall_roas.toFixed(2),
+                    change: summary.overall_roas >= 1.5 ? 'Excellent Performance' : 'Good Performance',
+                    class: summary.overall_roas >= 1.5 ? 'success' : 'warning',
+                    positive: true
+                },
+                {
+                    label: 'Total Profit',
+                    value: `$${(summary.total_profit / 1000).toFixed(1)}K`,
+                    change: `${summary.overall_roas >= 1.5 ? '+' : ''}${((summary.total_profit / summary.total_spend) * 100).toFixed(1)}% Margin`,
+                    class: 'success',
+                    positive: true
+                },
+                {
+                    label: 'Total Conversions',
+                    value: summary.total_conversions.toLocaleString(),
+                    change: `${summary.overall_ctr}% CTR`,
+                    class: 'info',
+                    positive: true
+                },
+                {
+                    label: 'Active Campaigns',
+                    value: summary.total_campaigns,
+                    change: `${summary.total_advertisers} Advertisers`,
+                    class: 'info',
+                    positive: false
+                }
+            ];
+            
+            kpis.forEach(kpi => {
+                const card = document.createElement('div');
+                card.className = `kpi-card ${kpi.class}`;
+                card.innerHTML = `
+                    <div class="kpi-label">${kpi.label}</div>
+                    <div class="kpi-value">${kpi.value}</div>
+                    <div class="kpi-change ${kpi.positive ? 'positive' : ''}">${kpi.change}</div>
+                `;
+                kpiContainer.appendChild(card);
+            });
+        }
+        
+        function renderCharts(data) {
+            // Daily Trends Chart
+            const dailyCtx = document.getElementById('dailyTrendsChart');
+            new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: data.daily_trends.map(d => d.date.substring(5)),
+                    datasets: [
+                        {
+                            label: 'Revenue ($)',
+                            data: data.daily_trends.map(d => d.daily_revenue),
+                            borderColor: colors.success,
+                            backgroundColor: colors.success + '20',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Spend ($)',
+                            data: data.daily_trends.map(d => d.daily_spend),
+                            borderColor: colors.danger,
+                            backgroundColor: colors.danger + '20',
+                            tension: 0.4,
+                            fill: true,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'ROAS',
+                            data: data.daily_trends.map(d => d.daily_roas),
+                            borderColor: colors.primary,
+                            backgroundColor: 'transparent',
+                            tension: 0.4,
+                            borderWidth: 3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Amount ($)'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Campaign Type Performance Chart
+            const typeCtx = document.getElementById('campaignTypeChart');
+            new Chart(typeCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.campaign_type_performance.map(d => d.campaign_type),
+                    datasets: [
+                        {
+                            label: 'ROAS',
+                            data: data.campaign_type_performance.map(d => d.avg_roas),
+                            backgroundColor: [colors.primary, colors.secondary, colors.purple],
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Industry Performance Chart
+            const industryCtx = document.getElementById('industryChart');
+            new Chart(industryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.industry_performance.map(d => d.industry),
+                    datasets: [{
+                        data: data.industry_performance.map(d => d.avg_roas),
+                        backgroundColor: [
+                            colors.primary,
+                            colors.secondary,
+                            colors.success,
+                            colors.purple,
+                            colors.teal
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+            
+            // Budget Utilization Chart
+            const budgetCtx = document.getElementById('budgetChart');
+            new Chart(budgetCtx, {
+                type: 'bar',
+                data: {
+                    labels: data.budget_utilization.map(d => d.advertiser_name),
+                    datasets: [
+                        {
+                            label: 'Budget Used (%)',
+                            data: data.budget_utilization.map(d => d.budget_utilization_percent),
+                            backgroundColor: data.budget_utilization.map(d => 
+                                d.pacing_status === 'Over Pace' ? colors.danger : 
+                                d.pacing_status === 'Under Pace' ? colors.warning : colors.success
+                            ),
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Budget Utilization (%)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Weekly Performance Chart
+            const weeklyCtx = document.getElementById('weeklyChart');
+            new Chart(weeklyCtx, {
+                type: 'line',
+                data: {
+                    labels: data.weekly_performance.map(d => d.week_period),
+                    datasets: [{
+                        label: 'Weekly ROAS',
+                        data: data.weekly_performance.map(d => d.weekly_roas),
+                        borderColor: colors.primary,
+                        backgroundColor: colors.primary + '30',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'ROAS'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function renderTable(data) {
+            const table = document.getElementById('campaignTable');
+            const campaigns = data.campaign_performance.slice(0, 10);
+            
+            let html = `
+                <thead>
+                    <tr>
+                        <th>Campaign Name</th>
+                        <th>Advertiser</th>
+                        <th>Type</th>
+                        <th>Spend</th>
+                        <th>Revenue</th>
+                        <th>ROAS</th>
+                        <th>Conversions</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            campaigns.forEach(campaign => {
+                const roasClass = campaign.roas >= 1.8 ? 'badge-high' : 
+                                 campaign.roas >= 1.2 ? 'badge-medium' : 'badge-low';
+                
+                html += `
+                    <tr>
+                        <td><strong>${campaign.campaign_name}</strong></td>
+                        <td>${campaign.advertiser_name}</td>
+                        <td>${campaign.campaign_type}</td>
+                        <td>$${campaign.total_spend.toLocaleString()}</td>
+                        <td>$${campaign.total_revenue.toLocaleString()}</td>
+                        <td><span class="metric-badge ${roasClass}">${campaign.roas.toFixed(2)}</span></td>
+                        <td>${campaign.total_conversions}</td>
+                        <td>${campaign.ctr_percent.toFixed(2)}% CTR</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody>';
+            table.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

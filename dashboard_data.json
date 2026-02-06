@@ -1,0 +1,819 @@
+{
+  "campaign_performance": [
+    {
+      "campaign_id": 104,
+      "campaign_name": "Kitchen Essentials",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 698483,
+      "total_clicks": 11004,
+      "total_spend": 105935.0,
+      "total_conversions": 1450,
+      "total_revenue": 203902.0,
+      "roas": 1.92,
+      "ctr_percent": 1.58,
+      "cpc": 9.63,
+      "conversion_rate_percent": 13.18,
+      "profit": 97967.0,
+      "roi_percent": 92.48
+    },
+    {
+      "campaign_id": 109,
+      "campaign_name": "Organic Snacks",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "GreenLeaf Organics",
+      "industry": "Grocery",
+      "total_impressions": 439528,
+      "total_clicks": 6517,
+      "total_spend": 68981.0,
+      "total_conversions": 996,
+      "total_revenue": 128318.0,
+      "roas": 1.86,
+      "ctr_percent": 1.48,
+      "cpc": 10.58,
+      "conversion_rate_percent": 15.28,
+      "profit": 59337.0,
+      "roi_percent": 86.02
+    },
+    {
+      "campaign_id": 107,
+      "campaign_name": "Protein Powder Range",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "FitLife Nutrition",
+      "industry": "Health & Wellness",
+      "total_impressions": 372146,
+      "total_clicks": 5470,
+      "total_spend": 62500.0,
+      "total_conversions": 908,
+      "total_revenue": 113550.0,
+      "roas": 1.82,
+      "ctr_percent": 1.47,
+      "cpc": 11.43,
+      "conversion_rate_percent": 16.6,
+      "profit": 51050.0,
+      "roi_percent": 81.68
+    },
+    {
+      "campaign_id": 106,
+      "campaign_name": "Furniture Sale",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 332219,
+      "total_clicks": 4931,
+      "total_spend": 44631.0,
+      "total_conversions": 524,
+      "total_revenue": 75584.0,
+      "roas": 1.69,
+      "ctr_percent": 1.48,
+      "cpc": 9.05,
+      "conversion_rate_percent": 10.63,
+      "profit": 30953.0,
+      "roi_percent": 69.35
+    },
+    {
+      "campaign_id": 111,
+      "campaign_name": "Winter Collection",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "StyleHub Fashion",
+      "industry": "Apparel",
+      "total_impressions": 525812,
+      "total_clicks": 8414,
+      "total_spend": 99989.0,
+      "total_conversions": 1077,
+      "total_revenue": 155411.0,
+      "roas": 1.55,
+      "ctr_percent": 1.6,
+      "cpc": 11.88,
+      "conversion_rate_percent": 12.8,
+      "profit": 55422.0,
+      "roi_percent": 55.43
+    },
+    {
+      "campaign_id": 101,
+      "campaign_name": "Premium Headphones - Q1",
+      "campaign_type": "Sponsored Products",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 404926,
+      "total_clicks": 6088,
+      "total_spend": 76962.0,
+      "total_conversions": 791,
+      "total_revenue": 117418.0,
+      "roas": 1.53,
+      "ctr_percent": 1.5,
+      "cpc": 12.64,
+      "conversion_rate_percent": 12.99,
+      "profit": 40456.0,
+      "roi_percent": 52.57
+    },
+    {
+      "campaign_id": 110,
+      "campaign_name": "Green Cleaning Products",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "GreenLeaf Organics",
+      "industry": "Grocery",
+      "total_impressions": 107825,
+      "total_clicks": 1598,
+      "total_spend": 17985.0,
+      "total_conversions": 197,
+      "total_revenue": 26792.0,
+      "roas": 1.49,
+      "ctr_percent": 1.48,
+      "cpc": 11.25,
+      "conversion_rate_percent": 12.33,
+      "profit": 8807.0,
+      "roi_percent": 48.97
+    },
+    {
+      "campaign_id": 108,
+      "campaign_name": "Vitamins & Supplements",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "FitLife Nutrition",
+      "industry": "Health & Wellness",
+      "total_impressions": 267736,
+      "total_clicks": 4215,
+      "total_spend": 49520.0,
+      "total_conversions": 573,
+      "total_revenue": 70460.0,
+      "roas": 1.42,
+      "ctr_percent": 1.57,
+      "cpc": 11.75,
+      "conversion_rate_percent": 13.59,
+      "profit": 20940.0,
+      "roi_percent": 42.29
+    },
+    {
+      "campaign_id": 112,
+      "campaign_name": "Accessories Campaign",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "StyleHub Fashion",
+      "industry": "Apparel",
+      "total_impressions": 470195,
+      "total_clicks": 6936,
+      "total_spend": 91206.0,
+      "total_conversions": 947,
+      "total_revenue": 124561.0,
+      "roas": 1.37,
+      "ctr_percent": 1.48,
+      "cpc": 13.15,
+      "conversion_rate_percent": 13.65,
+      "profit": 33355.0,
+      "roi_percent": 36.57
+    },
+    {
+      "campaign_id": 103,
+      "campaign_name": "Gaming Accessories",
+      "campaign_type": "Sponsored Display",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 145738,
+      "total_clicks": 2279,
+      "total_spend": 25388.0,
+      "total_conversions": 232,
+      "total_revenue": 34455.0,
+      "roas": 1.36,
+      "ctr_percent": 1.56,
+      "cpc": 11.14,
+      "conversion_rate_percent": 10.18,
+      "profit": 9067.0,
+      "roi_percent": 35.71
+    },
+    {
+      "campaign_id": 105,
+      "campaign_name": "Home Decor Collection",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "HomeStyle Living",
+      "industry": "Home & Kitchen",
+      "total_impressions": 587669,
+      "total_clicks": 9614,
+      "total_spend": 127408.0,
+      "total_conversions": 1038,
+      "total_revenue": 144810.0,
+      "roas": 1.14,
+      "ctr_percent": 1.64,
+      "cpc": 13.25,
+      "conversion_rate_percent": 10.8,
+      "profit": 17402.0,
+      "roi_percent": 13.66
+    },
+    {
+      "campaign_id": 102,
+      "campaign_name": "Smart Watches Launch",
+      "campaign_type": "Sponsored Brands",
+      "advertiser_name": "TechGear Pro",
+      "industry": "Electronics",
+      "total_impressions": 501565,
+      "total_clicks": 7229,
+      "total_spend": 94400.0,
+      "total_conversions": 667,
+      "total_revenue": 99623.0,
+      "roas": 1.06,
+      "ctr_percent": 1.44,
+      "cpc": 13.06,
+      "conversion_rate_percent": 9.23,
+      "profit": 5223.0,
+      "roi_percent": 5.53
+    }
+  ],
+  "daily_trends": [
+    {
+      "date": "2025-01-01",
+      "daily_impressions": 128354,
+      "daily_clicks": 1984,
+      "daily_spend": 23085.0,
+      "daily_conversions": 257,
+      "daily_revenue": 32925.0,
+      "daily_roas": 1.43,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-02",
+      "daily_impressions": 126653,
+      "daily_clicks": 2004,
+      "daily_spend": 23868.0,
+      "daily_conversions": 265,
+      "daily_revenue": 34103.0,
+      "daily_roas": 1.43,
+      "daily_ctr": 1.58
+    },
+    {
+      "date": "2025-01-03",
+      "daily_impressions": 132501,
+      "daily_clicks": 2073,
+      "daily_spend": 23893.0,
+      "daily_conversions": 246,
+      "daily_revenue": 35799.0,
+      "daily_roas": 1.5,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-04",
+      "daily_impressions": 128555,
+      "daily_clicks": 1998,
+      "daily_spend": 23075.0,
+      "daily_conversions": 245,
+      "daily_revenue": 35045.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-05",
+      "daily_impressions": 139177,
+      "daily_clicks": 2133,
+      "daily_spend": 25162.0,
+      "daily_conversions": 286,
+      "daily_revenue": 37436.0,
+      "daily_roas": 1.49,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-06",
+      "daily_impressions": 139275,
+      "daily_clicks": 2083,
+      "daily_spend": 25295.0,
+      "daily_conversions": 268,
+      "daily_revenue": 38314.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.5
+    },
+    {
+      "date": "2025-01-07",
+      "daily_impressions": 138971,
+      "daily_clicks": 2206,
+      "daily_spend": 25611.0,
+      "daily_conversions": 286,
+      "daily_revenue": 37590.0,
+      "daily_roas": 1.47,
+      "daily_ctr": 1.59
+    },
+    {
+      "date": "2025-01-08",
+      "daily_impressions": 136889,
+      "daily_clicks": 2153,
+      "daily_spend": 25353.0,
+      "daily_conversions": 269,
+      "daily_revenue": 38261.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.57
+    },
+    {
+      "date": "2025-01-09",
+      "daily_impressions": 136502,
+      "daily_clicks": 2130,
+      "daily_spend": 25586.0,
+      "daily_conversions": 268,
+      "daily_revenue": 37474.0,
+      "daily_roas": 1.46,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-10",
+      "daily_impressions": 157377,
+      "daily_clicks": 2332,
+      "daily_spend": 26910.0,
+      "daily_conversions": 301,
+      "daily_revenue": 38744.0,
+      "daily_roas": 1.44,
+      "daily_ctr": 1.48
+    },
+    {
+      "date": "2025-01-11",
+      "daily_impressions": 153497,
+      "daily_clicks": 2294,
+      "daily_spend": 26389.0,
+      "daily_conversions": 297,
+      "daily_revenue": 41038.0,
+      "daily_roas": 1.56,
+      "daily_ctr": 1.49
+    },
+    {
+      "date": "2025-01-12",
+      "daily_impressions": 150262,
+      "daily_clicks": 2250,
+      "daily_spend": 27465.0,
+      "daily_conversions": 299,
+      "daily_revenue": 42314.0,
+      "daily_roas": 1.54,
+      "daily_ctr": 1.5
+    },
+    {
+      "date": "2025-01-13",
+      "daily_impressions": 153707,
+      "daily_clicks": 2419,
+      "daily_spend": 27945.0,
+      "daily_conversions": 299,
+      "daily_revenue": 39967.0,
+      "daily_roas": 1.43,
+      "daily_ctr": 1.57
+    },
+    {
+      "date": "2025-01-14",
+      "daily_impressions": 155101,
+      "daily_clicks": 2406,
+      "daily_spend": 27634.0,
+      "daily_conversions": 307,
+      "daily_revenue": 42006.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.55
+    },
+    {
+      "date": "2025-01-15",
+      "daily_impressions": 162220,
+      "daily_clicks": 2451,
+      "daily_spend": 28958.0,
+      "daily_conversions": 311,
+      "daily_revenue": 42790.0,
+      "daily_roas": 1.48,
+      "daily_ctr": 1.51
+    },
+    {
+      "date": "2025-01-16",
+      "daily_impressions": 164385,
+      "daily_clicks": 2435,
+      "daily_spend": 28482.0,
+      "daily_conversions": 311,
+      "daily_revenue": 42889.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.48
+    },
+    {
+      "date": "2025-01-17",
+      "daily_impressions": 163813,
+      "daily_clicks": 2508,
+      "daily_spend": 28844.0,
+      "daily_conversions": 316,
+      "daily_revenue": 43097.0,
+      "daily_roas": 1.49,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-18",
+      "daily_impressions": 162214,
+      "daily_clicks": 2465,
+      "daily_spend": 28614.0,
+      "daily_conversions": 298,
+      "daily_revenue": 44336.0,
+      "daily_roas": 1.55,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-19",
+      "daily_impressions": 164802,
+      "daily_clicks": 2526,
+      "daily_spend": 28805.0,
+      "daily_conversions": 310,
+      "daily_revenue": 43621.0,
+      "daily_roas": 1.51,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-20",
+      "daily_impressions": 167961,
+      "daily_clicks": 2635,
+      "daily_spend": 30894.0,
+      "daily_conversions": 322,
+      "daily_revenue": 44889.0,
+      "daily_roas": 1.45,
+      "daily_ctr": 1.57
+    },
+    {
+      "date": "2025-01-21",
+      "daily_impressions": 171197,
+      "daily_clicks": 2584,
+      "daily_spend": 30342.0,
+      "daily_conversions": 331,
+      "daily_revenue": 47384.0,
+      "daily_roas": 1.56,
+      "daily_ctr": 1.51
+    },
+    {
+      "date": "2025-01-22",
+      "daily_impressions": 172897,
+      "daily_clicks": 2633,
+      "daily_spend": 30405.0,
+      "daily_conversions": 334,
+      "daily_revenue": 45126.0,
+      "daily_roas": 1.48,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-23",
+      "daily_impressions": 168531,
+      "daily_clicks": 2633,
+      "daily_spend": 29983.0,
+      "daily_conversions": 326,
+      "daily_revenue": 43633.0,
+      "daily_roas": 1.46,
+      "daily_ctr": 1.56
+    },
+    {
+      "date": "2025-01-24",
+      "daily_impressions": 174385,
+      "daily_clicks": 2671,
+      "daily_spend": 30694.0,
+      "daily_conversions": 320,
+      "daily_revenue": 45741.0,
+      "daily_roas": 1.49,
+      "daily_ctr": 1.53
+    },
+    {
+      "date": "2025-01-25",
+      "daily_impressions": 175172,
+      "daily_clicks": 2570,
+      "daily_spend": 30280.0,
+      "daily_conversions": 321,
+      "daily_revenue": 46057.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.47
+    },
+    {
+      "date": "2025-01-26",
+      "daily_impressions": 167363,
+      "daily_clicks": 2626,
+      "daily_spend": 30826.0,
+      "daily_conversions": 330,
+      "daily_revenue": 44855.0,
+      "daily_roas": 1.46,
+      "daily_ctr": 1.57
+    },
+    {
+      "date": "2025-01-27",
+      "daily_impressions": 173954,
+      "daily_clicks": 2636,
+      "daily_spend": 30453.0,
+      "daily_conversions": 348,
+      "daily_revenue": 44683.0,
+      "daily_roas": 1.47,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-28",
+      "daily_impressions": 173497,
+      "daily_clicks": 2527,
+      "daily_spend": 30164.0,
+      "daily_conversions": 335,
+      "daily_revenue": 46508.0,
+      "daily_roas": 1.54,
+      "daily_ctr": 1.46
+    },
+    {
+      "date": "2025-01-29",
+      "daily_impressions": 171126,
+      "daily_clicks": 2600,
+      "daily_spend": 29716.0,
+      "daily_conversions": 329,
+      "daily_revenue": 46261.0,
+      "daily_roas": 1.56,
+      "daily_ctr": 1.52
+    },
+    {
+      "date": "2025-01-30",
+      "daily_impressions": 171801,
+      "daily_clicks": 2723,
+      "daily_spend": 29736.0,
+      "daily_conversions": 326,
+      "daily_revenue": 45242.0,
+      "daily_roas": 1.52,
+      "daily_ctr": 1.58
+    },
+    {
+      "date": "2025-01-31",
+      "daily_impressions": 171703,
+      "daily_clicks": 2607,
+      "daily_spend": 30438.0,
+      "daily_conversions": 339,
+      "daily_revenue": 46756.0,
+      "daily_roas": 1.54,
+      "daily_ctr": 1.52
+    }
+  ],
+  "budget_utilization": [
+    {
+      "advertiser_name": "HomeStyle Living",
+      "monthly_budget": 200000.0,
+      "actual_spend_mtd": 277974.0,
+      "budget_utilization_percent": 138.99,
+      "remaining_budget": -77974.0,
+      "active_campaigns": 3,
+      "avg_daily_spend": 3309.21,
+      "projected_monthly_spend": 102585.64,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "TechGear Pro",
+      "monthly_budget": 150000.0,
+      "actual_spend_mtd": 196750.0,
+      "budget_utilization_percent": 131.17,
+      "remaining_budget": -46750.0,
+      "active_campaigns": 3,
+      "avg_daily_spend": 2490.51,
+      "projected_monthly_spend": 77205.7,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "FitLife Nutrition",
+      "monthly_budget": 100000.0,
+      "actual_spend_mtd": 112020.0,
+      "budget_utilization_percent": 112.02,
+      "remaining_budget": -12020.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 1931.38,
+      "projected_monthly_spend": 59872.76,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "StyleHub Fashion",
+      "monthly_budget": 180000.0,
+      "actual_spend_mtd": 191195.0,
+      "budget_utilization_percent": 106.22,
+      "remaining_budget": -11195.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 3083.79,
+      "projected_monthly_spend": 95597.5,
+      "pacing_status": "Under Pace"
+    },
+    {
+      "advertiser_name": "GreenLeaf Organics",
+      "monthly_budget": 120000.0,
+      "actual_spend_mtd": 86966.0,
+      "budget_utilization_percent": 72.47,
+      "remaining_budget": 33034.0,
+      "active_campaigns": 2,
+      "avg_daily_spend": 2022.47,
+      "projected_monthly_spend": 62696.42,
+      "pacing_status": "Under Pace"
+    }
+  ],
+  "campaign_type_performance": [
+    {
+      "campaign_type": "Sponsored Products",
+      "num_campaigns": 5,
+      "total_spend": 414367.0,
+      "total_revenue": 718599.0,
+      "avg_roas": 1.73,
+      "avg_cpc": 11.05,
+      "avg_ctr": 1.54,
+      "avg_conversion_rate": 13.93,
+      "roi_percent": 73.42
+    },
+    {
+      "campaign_type": "Sponsored Display",
+      "num_campaigns": 3,
+      "total_spend": 88004.0,
+      "total_revenue": 136831.0,
+      "avg_roas": 1.55,
+      "avg_cpc": 9.99,
+      "avg_ctr": 1.5,
+      "avg_conversion_rate": 10.82,
+      "roi_percent": 55.48
+    },
+    {
+      "campaign_type": "Sponsored Brands",
+      "num_campaigns": 4,
+      "total_spend": 362534.0,
+      "total_revenue": 439454.0,
+      "avg_roas": 1.21,
+      "avg_cpc": 12.95,
+      "avg_ctr": 1.53,
+      "avg_conversion_rate": 11.52,
+      "roi_percent": 21.22
+    }
+  ],
+  "industry_performance": [
+    {
+      "industry": "Home & Kitchen",
+      "num_advertisers": 1,
+      "num_campaigns": 3,
+      "total_spend": 277974.0,
+      "total_revenue": 424296.0,
+      "avg_roas": 1.53,
+      "total_profit": 146322.0,
+      "avg_spend_per_advertiser": 277974.0
+    },
+    {
+      "industry": "Apparel",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 191195.0,
+      "total_revenue": 279972.0,
+      "avg_roas": 1.46,
+      "total_profit": 88777.0,
+      "avg_spend_per_advertiser": 191195.0
+    },
+    {
+      "industry": "Health & Wellness",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 112020.0,
+      "total_revenue": 184010.0,
+      "avg_roas": 1.64,
+      "total_profit": 71990.0,
+      "avg_spend_per_advertiser": 112020.0
+    },
+    {
+      "industry": "Grocery",
+      "num_advertisers": 1,
+      "num_campaigns": 2,
+      "total_spend": 86966.0,
+      "total_revenue": 155110.0,
+      "avg_roas": 1.78,
+      "total_profit": 68144.0,
+      "avg_spend_per_advertiser": 86966.0
+    },
+    {
+      "industry": "Electronics",
+      "num_advertisers": 1,
+      "num_campaigns": 3,
+      "total_spend": 196750.0,
+      "total_revenue": 251496.0,
+      "avg_roas": 1.28,
+      "total_profit": 54746.0,
+      "avg_spend_per_advertiser": 196750.0
+    }
+  ],
+  "weekly_performance": [
+    {
+      "week_period": "Week 1",
+      "weekly_spend": 169989.0,
+      "weekly_revenue": 251212.0,
+      "weekly_conversions": 1853,
+      "weekly_roas": 1.48,
+      "weekly_profit": 81223.0
+    },
+    {
+      "week_period": "Week 2",
+      "weekly_spend": 187282.0,
+      "weekly_revenue": 279804.0,
+      "weekly_conversions": 2040,
+      "weekly_roas": 1.49,
+      "weekly_profit": 92522.0
+    },
+    {
+      "week_period": "Week 3",
+      "weekly_spend": 204939.0,
+      "weekly_revenue": 309006.0,
+      "weekly_conversions": 2199,
+      "weekly_roas": 1.51,
+      "weekly_profit": 104067.0
+    },
+    {
+      "week_period": "Week 4+",
+      "weekly_spend": 302695.0,
+      "weekly_revenue": 454862.0,
+      "weekly_conversions": 3308,
+      "weekly_roas": 1.5,
+      "weekly_profit": 152167.0
+    }
+  ],
+  "top_performers": [
+    {
+      "category": "Top Performer",
+      "campaign_name": "Kitchen Essentials",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 105935.0,
+      "total_revenue": 203902.0,
+      "roas": 1.92,
+      "conversions": 1450
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Organic Snacks",
+      "advertiser_name": "GreenLeaf Organics",
+      "total_spend": 68981.0,
+      "total_revenue": 128318.0,
+      "roas": 1.86,
+      "conversions": 996
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Protein Powder Range",
+      "advertiser_name": "FitLife Nutrition",
+      "total_spend": 62500.0,
+      "total_revenue": 113550.0,
+      "roas": 1.82,
+      "conversions": 908
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Furniture Sale",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 44631.0,
+      "total_revenue": 75584.0,
+      "roas": 1.69,
+      "conversions": 524
+    },
+    {
+      "category": "Top Performer",
+      "campaign_name": "Winter Collection",
+      "advertiser_name": "StyleHub Fashion",
+      "total_spend": 99989.0,
+      "total_revenue": 155411.0,
+      "roas": 1.55,
+      "conversions": 1077
+    }
+  ],
+  "bottom_performers": [
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Smart Watches Launch",
+      "advertiser_name": "TechGear Pro",
+      "total_spend": 94400.0,
+      "total_revenue": 99623.0,
+      "roas": 1.06,
+      "conversions": 667
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Home Decor Collection",
+      "advertiser_name": "HomeStyle Living",
+      "total_spend": 127408.0,
+      "total_revenue": 144810.0,
+      "roas": 1.14,
+      "conversions": 1038
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Gaming Accessories",
+      "advertiser_name": "TechGear Pro",
+      "total_spend": 25388.0,
+      "total_revenue": 34455.0,
+      "roas": 1.36,
+      "conversions": 232
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Accessories Campaign",
+      "advertiser_name": "StyleHub Fashion",
+      "total_spend": 91206.0,
+      "total_revenue": 124561.0,
+      "roas": 1.37,
+      "conversions": 947
+    },
+    {
+      "category": "Bottom Performer",
+      "campaign_name": "Vitamins & Supplements",
+      "advertiser_name": "FitLife Nutrition",
+      "total_spend": 49520.0,
+      "total_revenue": 70460.0,
+      "roas": 1.42,
+      "conversions": 573
+    }
+  ],
+  "summary_metrics": [
+    {
+      "total_advertisers": 5,
+      "total_campaigns": 12,
+      "total_impressions": 4853842,
+      "total_clicks": 74295,
+      "total_spend": 864905.0,
+      "total_conversions": 9400,
+      "total_revenue": 1294884.0,
+      "overall_roas": 1.5,
+      "overall_ctr": 1.53,
+      "overall_cpc": 11.64,
+      "total_profit": 429979.0
+    }
+  ]
+}
